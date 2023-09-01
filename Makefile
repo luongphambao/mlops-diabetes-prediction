@@ -13,3 +13,6 @@ elk_up:
 elk_down:
 	cd deployment/elk/
 	docker compose -f elk-docker-compose.yml -f extensions/filebeat/filebeat-compose.yml down
+predictor_curl:
+	curl -X POST http://0.0.0.0:8000/predict -H "Content-Type: application/json" -d @requests/request_1622.json
+	curl -X POST http://0.0.0.0:8000/predict -H "Content-Type: application/json" -d @requests/request_12193.json
