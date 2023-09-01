@@ -14,10 +14,9 @@ from sklearn.tree import DecisionTreeClassifier
 from lightgbm import LGBMClassifier
 #import logistic regression
 from sklearn.linear_model import LogisticRegression
-
+import pickle 
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score,roc_auc_score
-
 
 from config import Config
 
@@ -62,9 +61,12 @@ class ModelTrainer:
 
         #scaler
         scaler = StandardScaler()
+
         X_train = scaler.fit_transform(X_train)
         X_test = scaler.transform(X_test)
-
+        #save scaler
+        with open("models/scaler.pkl", "wb") as f:
+            pickle.dump(scaler, f)
         #create model
         model = ModelTrainer.get_model(model_name)
         #training model
