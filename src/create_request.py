@@ -5,7 +5,8 @@ import json
 
 
 df=pd.read_csv("data/val.csv")
-
+#drop outcome
+df=df.drop(columns=["Outcome"])
 n=len(df)
 columns=df.columns.tolist()
 #create 100 requests
