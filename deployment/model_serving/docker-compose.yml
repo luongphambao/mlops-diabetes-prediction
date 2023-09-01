@@ -1,0 +1,13 @@
+version: "3.7"
+services:
+  model_predictor:
+    image: ${IMAGE_NAME}:${IMAGE_TAG}
+    restart: on-failure
+    #volumes:
+    ports:
+      - 8000:8000
+    environment:
+      MLFLOW_TRACKING_URI: http://host.docker.internal:5000
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    entrypoint: /bin/sh -c "python3 src/api.py"
