@@ -8,3 +8,16 @@ pydantic==1.10.7
 scikit-learn==1.1.2
 xgboost
 lightgbm
+opentelemetry-api==1.19.0
+opentelemetry-sdk==1.19.0
+opentelemetry-instrumentation-asgi==0.40b0
+opentelemetry-instrumentation-fastapi==0.40b0
+opentelemetry-instrumentation-requests==0.40b0
+opentelemetry-instrumentation-logging==0.40b0
+opentelemetry-exporter-jaeger==1.19.0
+opentelemetry-exporter-otlp-proto-grpc==1.19.0
+opentelemetry-exporter-prometheus==1.12.0rc1
+loguru==0.7.0
+python-multipart==0.0.6
+prometheus-client==0.17.1
+prometheus_fastapi_instrumentator==6.1.0

@@ -1,0 +1,25 @@
+{
+    "id": 83929,
+    "data": [
+        [
+            2.0,
+            68.0,
+            70.0,
+            32.0,
+            66.0,
+            25.0,
+            0.187,
+            25.0
+        ]
+    ],
+    "columns": [
+        "Pregnancies",
+        "Glucose",
+        "BloodPressure",
+        "SkinThickness",
+        "Insulin",
+        "BMI",
+        "DiabetesPedigreeFunction",
+        "Age"
+    ]
+}

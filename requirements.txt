@@ -1,0 +1,9 @@
+numpy 
+pandas
+matplotlib
+xgboost
+lightgbm
+scikit-learn
+mlflow==2.3.2
+pydantic
+fastapi
