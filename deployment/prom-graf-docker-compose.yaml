@@ -29,7 +29,7 @@ services:
       - monitoring
 
   prometheus:
-    image: prom/prometheus:v2.38.0
+    image: prom/prometheus:v2.39.0
     container_name: prometheus
     restart: unless-stopped
     volumes:
