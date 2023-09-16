@@ -13,8 +13,24 @@ from pydantic import BaseModel
 import argparse
 from loguru import logger
 from config import Config
-
+from opentelemetry.exporter.jaeger.thrift import JaegerExporter
+from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
+from opentelemetry.sdk.resources import SERVICE_NAME, Resource
+from opentelemetry.sdk.trace import TracerProvider
+from opentelemetry.sdk.trace.export import BatchSpanProcessor
+from opentelemetry.trace import get_tracer_provider, set_tracer_provider
 PREDICTOR_API_PORT = Config.PREDICTOR_API_PORT
+set_tracer_provider(
+    TracerProvider(resource=Resource.create({SERVICE_NAME: "model_serving"}))
+)
+tracer = get_tracer_provider().get_tracer("model_serving", "0.1.2")
+
+jaeger_exporter = JaegerExporter(
+    agent_host_name="localhost",
+    agent_port=6831,
+)
+span_processor = BatchSpanProcessor(jaeger_exporter)
+get_tracer_provider().add_span_processor(span_processor)
 
 
 class Data(BaseModel):
