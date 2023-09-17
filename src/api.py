@@ -106,8 +106,9 @@ class ServingAPI:
             """
             return self.predictor.predict(data)
     def run(self,port):
-        #Instrumentator().instrument(app=self.app).expose(app=self.app)
-        #FastAPIInstrumentor.instrument_app(self.app)
+        Instrumentator().instrument(app=self.app).expose(app=self.app)
+        #tracer = get_tracer_provider().get_tracer("model_serving", "0.1.0")
+        FastAPIInstrumentor.instrument_app(self.app,excluded_urls="/metrics")
         
         logger.info("instrument app")
         uvicorn.run(self.app, host="0.0.0.0", port=port)
