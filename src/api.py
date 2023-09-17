@@ -13,21 +13,29 @@ from pydantic import BaseModel
 import argparse
 from loguru import logger
 from config import Config
+from opentelemetry import trace
 from opentelemetry.exporter.jaeger.thrift import JaegerExporter
 from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
 from opentelemetry.sdk.resources import SERVICE_NAME, Resource
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import BatchSpanProcessor
 from opentelemetry.trace import get_tracer_provider, set_tracer_provider
+from prometheus_fastapi_instrumentator import Instrumentator
+from prometheus_client import start_http_server
 PREDICTOR_API_PORT = Config.PREDICTOR_API_PORT
+
+
+start_http_server(port=8099, addr="0.0.0.0")
+
 set_tracer_provider(
-    TracerProvider(resource=Resource.create({SERVICE_NAME: "model_serving"}))
+    TracerProvider(resource=Resource.create({SERVICE_NAME: "model_serving_manual"}))
 )
-tracer = get_tracer_provider().get_tracer("model_serving", "0.1.2")
+tracer = get_tracer_provider().get_tracer("model_serving", "0.1.0")
 
 jaeger_exporter = JaegerExporter(
     agent_host_name="localhost",
     agent_port=6831,
+    
 )
 span_processor = BatchSpanProcessor(jaeger_exporter)
 get_tracer_provider().add_span_processor(span_processor)
@@ -54,30 +62,37 @@ class ModelPredictor:
         self.scaler=pickle.load(open("models/scaler.pkl","rb"))
         logging.info("scaler loaded")
     def predict(self,data:Data):
-
-        start_time = time.time()
-        #df=pd.DataFrame(data.data)
-        #convert to numpy array
-        df=pd.DataFrame(data.data,columns=data.columns)
-        end_convertdf=time.time()
-        logger.info(f"convert df time: {end_convertdf-start_time}")
-        #df=df.to_numpy()
-        df = self.scaler.transform(df)
-        end_scaler=time.time()
-        logger.info(f"scaler time: {end_scaler-end_convertdf}")
-        y_pred=self.model.predict(df)
-        end_pred=time.time()
-        logger.info(f"predict time: {end_pred-end_scaler}")
-        return{
-            "id":data.id,
-            "predictions":y_pred.tolist(),
-        }
+        
+        
+        with tracer.start_as_current_span("processors") as processors:
+            with tracer.start_as_current_span(
+                "convert dataframe", links=[trace.Link(processors.get_span_context())]
+            ):
+                start_time = time.time()
+                df=pd.DataFrame(data.data,columns=data.columns)
+                end_convertdf=time.time()
+                logger.info(f"convert df time: {end_convertdf-start_time}")
+            with tracer.start_as_current_span(
+            "transform", links=[trace.Link(processors.get_span_context())]):
+                df = self.scaler.transform(df)
+                end_scaler=time.time()
+                logger.info(f"scaler time: {end_scaler-end_convertdf}")
+            with tracer.start_as_current_span(
+            "model predict", links=[trace.Link(processors.get_span_context())]):
+                y_pred=self.model.predict(df)
+                end_pred=time.time()
+                logger.info(f"predict time: {end_pred-end_scaler}")
+            return{
+                "id":data.id,
+                "predictions":y_pred.tolist(),
+            }
 class ServingAPI:
     def __init__(self,predictor:ModelPredictor):
         self.predictor = predictor
         self.app = FastAPI()
         @self.app.get("/")
         async def root():
+            logger.info("hello")
             return {"message": "hello"}
 
         @self.app.post("/predict")
@@ -91,11 +106,10 @@ class ServingAPI:
             """
             return self.predictor.predict(data)
     def run(self,port):
-        from prometheus_fastapi_instrumentator import Instrumentator
+        #Instrumentator().instrument(app=self.app).expose(app=self.app)
+        #FastAPIInstrumentor.instrument_app(self.app)
         
-        #
-        FastAPIInstrumentor.instrument_app(self.app)
-        #Instrumentator().instrument(self.app).expose(self.app)
+        logger.info("instrument app")
         uvicorn.run(self.app, host="0.0.0.0", port=port)
 
 def parse_args():
