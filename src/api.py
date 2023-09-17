@@ -92,7 +92,10 @@ class ServingAPI:
             return self.predictor.predict(data)
     def run(self,port):
         from prometheus_fastapi_instrumentator import Instrumentator
-        Instrumentator().instrument(self.app).expose(self.app)
+        
+        #
+        FastAPIInstrumentor.instrument_app(self.app)
+        #Instrumentator().instrument(self.app).expose(self.app)
         uvicorn.run(self.app, host="0.0.0.0", port=port)
 
 def parse_args():
