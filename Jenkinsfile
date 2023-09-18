@@ -1,21 +1,10 @@
 pipeline {
     agent any
-
-    options{
-        buildDiscarder(logRotator(numToKeepStr: '5', daysToKeepStr: '5'))
-        timestamps()
-    }
-
-    environment{
-        registry = 'luongphambao/diabetes-prediction'
-        registryCredential = 'dockerhub'      
-    }
-
     stages {
         stage('Test') {
             agent {
                 docker {
-                    image 'python:3.8' 
+                    image 'python:3.9' 
                 }
             }
             steps {
@@ -23,24 +12,15 @@ pipeline {
                 sh 'pip install -r requirements.txt && pytest'
             }
         }
-        stage('Build') {
+        stage('deploy model serving'){
             steps {
-                script {
-                    echo 'Building image for deployment..'
-                    dockerImage = docker.build registry + ":$BUILD_NUMBER" 
-                    echo 'Pushing image to dockerhub..'
-                    docker.withRegistry( '', registryCredential ) {
-                        dockerImage.push()
-                        dockerImage.push('latest')
-                    }
-                }
+                echo 'Testing model serving..'
+                sh 'make predictor_up'
+
             }
         }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying models..'
-                echo 'Running a script to trigger pull and start a docker container'
-            }
-        }
+        
+
     }
+    
 }
