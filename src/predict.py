@@ -18,6 +18,7 @@ class ModelPredictor:
         self.model=joblib.load("models/diabetes_model.pkl")
         self.scaler=joblib.load("models/scaler.pkl")
         logging.info("scaler loaded")
+        logging.info("model loaded")
     def predict(self,df:np.ndarray):
         start_time = time.time()
         df = self.scaler.transform(df)
