@@ -6,6 +6,7 @@ import mlflow
 import os 
 import time
 import pickle
+import joblib
 from config import Config
 class ModelPredictor:
     def __init__(self, config_file_path):
@@ -14,14 +15,8 @@ class ModelPredictor:
             print(self.config)
             print("load config")
         logging.info(f"model-config: {self.config}")
-        mlflow.set_tracking_uri(Config.MLFLOW_URI )
-        model_uri = os.path.join(
-            "models:/", self.config["model_name"], str(self.config["model_version"])
-        )
-        #self.model = mlflow.pyfunc.load_model(model_uri)
-        self.model = mlflow.sklearn.load_model(model_uri)
-        logging.info(f"model loaded from {model_uri}")
-        self.scaler=pickle.load(open("models/scaler.pkl","rb"))
+        self.model=joblib.load("models/diabetes_model.pkl")
+        self.scaler=joblib.load("models/scaler.pkl")
         logging.info("scaler loaded")
     def predict(self,df:np.ndarray):
         start_time = time.time()
