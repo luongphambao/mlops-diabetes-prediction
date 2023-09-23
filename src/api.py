@@ -1,7 +1,5 @@
-import os
-import random
+
 import time
-import mlflow
 import pandas as pd
 import numpy as np 
 import uvicorn
@@ -48,11 +46,11 @@ class Data(BaseModel):
     columns: list
 class ModelPredictor:
     def __init__(self, config_file_path):
-        with open(config_file_path, "r") as f:
-            self.config = yaml.safe_load(f)
-            print(self.config)
-            print("load config")
-        logging.info(f"model-config: {self.config}")
+        # with open(config_file_path, "r") as f:
+        #     self.config = yaml.safe_load(f)
+        #     print(self.config)
+        #     print("load config")
+        # logging.info(f"model-config: {self.config}")
         self.model=joblib.load("models/diabetes_model.pkl")
         self.scaler=joblib.load("models/scaler.pkl")
         logging.info("scaler loaded")
