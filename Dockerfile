@@ -14,10 +14,10 @@ COPY ./src/api.py /app
 
 LABEL maintainer="luongphambao"
 
-EXPOSE 8000
+EXPOSE 30000
 
 # Disable pip cache to shrink the image size a little bit,
 # since it does not need to be re-installed
 RUN pip install -r requirements.txt --no-cache-dir
 
-CMD ["python3","api.py"]
+CMD ["python3","api.py","--port","30000"]
