@@ -1,7 +1,12 @@
-In this tutorial, you will manage your OCR app by Helm.
 
-## How-to Guide
+#
 ```shell
-cd ocr_chart
-helm upgrade --install ocr .
+cd k8s/helm/diabetes
+helm upgrade --install diabetes .
+
+```
+
+```shell
+k create ns model-serving
+k port-forward svc/diabetes 30002:30000 -n model-serving
 ```
