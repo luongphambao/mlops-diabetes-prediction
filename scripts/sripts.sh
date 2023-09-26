@@ -3,3 +3,4 @@
  docker compose -f jenkins/docker-compose.yaml up -d
  docker build -t luongphambao/model_serving .
  k port-forward svc/diabetes 30002:30000 -n model-serving
+  ssh -i ~/.ssh/id_rsa baolp@34.106.26.29
