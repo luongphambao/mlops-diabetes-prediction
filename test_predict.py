@@ -4,7 +4,6 @@ import yaml
 import logging
 import time
 import joblib
-from config import Config
 class ModelPredictor:
     def __init__(self, config_file_path):
         with open(config_file_path, "r") as f:
