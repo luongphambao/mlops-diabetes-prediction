@@ -2,10 +2,7 @@ import pandas as pd
 import numpy as np
 import yaml
 import logging
-import mlflow
-import os 
 import time
-import pickle
 import joblib
 from config import Config
 class ModelPredictor:
@@ -31,4 +28,5 @@ if __name__ == "__main__":
     val_X = val.drop(columns=['Outcome'])
     val_y = val['Outcome']
     y_pred = predictor.predict(val_X)
-    print(y_pred)
+    acc = (y_pred == val_y).sum()/len(val_y)
+    print(acc)
