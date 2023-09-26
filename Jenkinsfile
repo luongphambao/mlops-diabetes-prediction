@@ -19,8 +19,8 @@ pipeline {
                 }
             }
             steps {
-                echo 'Testing model correctness.. and requirements.txt'
-                sh 'pip install -r requirements.txt'
+                echo 'Testing model correctness.. and requirmenets.txt'
+                sh 'pip install -r requirements.txt && pytest'
             }
         }
         stage('Build') {
