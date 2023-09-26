@@ -1,21 +1,45 @@
 pipeline {
     agent any
 
+    options{
+        buildDiscarder(logRotator(numToKeepStr: '5', daysToKeepStr: '5'))
+        timestamps()
+    }
+
+    environment{
+        registry = 'luongphambao/model_serving'
+        registryCredential = 'dockerhub'      
+    }
+
     stages {
         stage('Test') {
+            agent {
+                docker {
+                    image 'python:3.9' 
+                }
+            }
             steps {
-                echo 'Testing something..'
+                echo 'Testing model correctness..'
+                sh 'pip install -r requirements.txt && pytest'
             }
         }
         stage('Build') {
             steps {
-                echo 'Building something..'
-
+                script {
+                    echo 'Building image for deployment..'
+                    dockerImage = docker.build registry + ":$BUILD_NUMBER" 
+                    echo 'Pushing image to dockerhub..'
+                    docker.withRegistry( '', registryCredential ) {
+                        dockerImage.push()
+                        dockerImage.push('latest')
+                    }
+                }
             }
         }
         stage('Deploy') {
             steps {
-                echo 'Deploying something..'
+                echo 'Deploying models..'
+                echo 'Running a script to trigger pull and start a docker container'
             }
         }
     }
