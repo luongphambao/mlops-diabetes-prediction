@@ -106,7 +106,7 @@
       "targets": [
         {
           "$$hashKey": "object:214",
-          "expr": "increase(http_requests_total{job=\"app\"}[1m])",
+          "expr": "increase(http_requests_total{job=\"model_serving\"}[1m])",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
@@ -423,7 +423,7 @@
       "targets": [
         {
           "$$hashKey": "object:638",
-          "expr": "process_resident_memory_bytes{job=\"app\"}",
+          "expr": "process_resident_memory_bytes{job=\"model_serving\"}",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
@@ -529,7 +529,7 @@
       "targets": [
         {
           "$$hashKey": "object:146",
-          "expr": "http_request_duration_seconds_sum{job=\"app\",handler!=\"none\"} / http_request_duration_seconds_count",
+          "expr": "http_request_duration_seconds_sum{job=\"model_serving\",handler!=\"none\"} / http_request_duration_seconds_count",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
@@ -737,7 +737,7 @@
       "targets": [
         {
           "$$hashKey": "object:638",
-          "expr": "rate(process_cpu_seconds_total{job=\"app\"}[30s])",
+          "expr": "rate(process_cpu_seconds_total{job=\"model_serving\"}[30s])",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
