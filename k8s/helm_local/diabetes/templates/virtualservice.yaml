@@ -1,0 +1,31 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: {{ .Release.Name }}
+  namespace: model-serving
+spec:
+  gateways:
+  - model-serving/{{ .Release.Name }}-gateway
+  hosts:
+  - '*'
+  http:
+  - match:
+    - uri:
+        prefix: /{{ .Release.Name }}-service/docs
+    rewrite:
+      uri: /docs
+    route:
+    - destination:
+        host: {{ .Release.Name }}.model-serving.svc.cluster.local
+        port:
+          number: 30000
+  - match:
+    - uri:
+        prefix: /{{ .Release.Name }}-service/openapi.json
+    rewrite:
+      uri: /openapi.json
+    route:
+    - destination:
+        host: {{ .Release.Name }}.model-serving.svc.cluster.local
+        port:
+          number: 30000
