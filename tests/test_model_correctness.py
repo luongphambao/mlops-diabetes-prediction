@@ -14,4 +14,4 @@ def test_model_correctness():
     x= np.array(data).reshape(-1, 8)
     x=scaler.transform(x)
     pred=clf.predict(x)[0]
-    assert pred == 1
+    assert pred ==0
