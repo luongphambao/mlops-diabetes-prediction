@@ -8,14 +8,14 @@ pipeline {
 
     environment{
         registry = 'luongphambao/model_serving'
-        registryCredential = 'dockerhub'      
+        registryCredential = 'dockerhub'
     }
 
     stages {
         stage('Test') {
             agent {
                 docker {
-                    image 'python:3.9' 
+                    image 'python:3.9'
                 }
             }
             steps {
@@ -27,7 +27,7 @@ pipeline {
             steps {
                 script {
                     echo 'Building image for deployment..'
-                    dockerImage = docker.build registry + ":$BUILD_NUMBER" 
+                    dockerImage = docker.build registry + ":$BUILD_NUMBER"
                     echo 'Pushing image to dockerhub..'
                     docker.withRegistry( '', registryCredential ) {
                         dockerImage.push()
