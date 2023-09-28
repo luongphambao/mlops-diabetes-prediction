@@ -49,7 +49,7 @@ pipeline {
             steps {
                 script {
                     container('helm') {
-                        sh("helm upgrade --install diabetes ./k8s/helm/diabetes --namespace model-serving")
+                        sh("helm upgrade --install diabetes ./k8s/helm/diabetes")
                     }
                 }
             }
