@@ -1,5 +1,4 @@
 # Deploy ML application to Google Cloud Platform
-![](images/architecture.png)
 
 ## 1. Create GKE Cluster
 ### How-to Guide
@@ -10,13 +9,12 @@ Gcloud CLI can be installed following this document https://cloud.google.com/sdk
 Initialize the gcloud CLI
 ```bash
 gcloud init
-Y
 ```
 + A pop-up to select your Google account will appear, select the one you used to register GCP, and click the button Allow.
 
 + Go back to your terminal, in which you typed `gcloud init`, pick cloud project you using, and Enter.
 
-+ Then type Y, type the ID number corresponding to **us-central1-f** (in my case), then Enter.
++ Then type Y, type the ID number corresponding to **my_region** , then Enter.
 
 #### 1.3. Install gke-cloud-auth-plugin
 ```bash
@@ -32,25 +30,6 @@ Create new key as json type for your service account. Download this json file an
 Go to [IAM](https://console.cloud.google.com/iam-admin/iam), click on `GRANT ACCESS`, then add new principals, this principal is your service account created in step 1.3. Finally, select `Owner` role.
 ![](images/grant_access.png)
 
-#### 1.6. Using [terraform](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli) to create GKE cluster.
-Update your [project id](https://console.cloud.google.com/projectcreate) in `terraform/variables.tf`
-Run the following commands to create GKE cluster:
-```bash
-gcloud auth application-default login
-```
-
-```bash
-cd terraform
-terraform init
-terraform plan
-terraform apply
-```
-+ GKE cluster is deployed at **us-central1-f** with its node machine type is: **n2-standard-2** (2 CPU, 8 GB RAM and costs 71$/1month).
-+ Unable [Autopilot](https://cloud.google.com/kubernetes-engine/docs/concepts/autopilot-overview) for the GKE cluster. When using Autopilot cluster, certain features of Standard GKE are not available, such as scraping node metrics from Prometheus service.
-
-It can takes about 10 minutes for create successfully a GKE cluster. You can see that on [GKE UI](https://console.cloud.google.com/kubernetes/list)
-
-![](images/gke_ui.png)
 #### 1.7. Connect to the GKE cluster.
 + Go back to the [GKE UI](https://console.cloud.google.com/kubernetes/list).
 + Click on vertical ellipsis icon and select **Connect**.
@@ -107,35 +86,6 @@ or you can utilize my Ingress IP address (valid until 27/11/2023 during the free
 34.133.25.217 retrieval.com
 ```
 
-+ Open web brower and type `retrieval.com/docs` to access the FastAPI UI and test the API.
-    + For more intuitive responses, you can run `client.py` (Refresh the html page to display the images.)
-
-        + Image query
-            ```bash
-            $ python client.py --save_dir temp.html --image_query your_image_file
-            ```
-
-            + **Top 8 products images similar with image query:**
-
-                ![](app/images/woman_blazers.png)
-
-                <html>
-                    <body>
-                        <div class="image-grid">
-                <img src="https://storage.googleapis.com/fashion_image/168125.jpg" alt="Image" width="200" height="300"><img src="https://storage.googleapis.com/fashion_image/510624.jpg" alt="Image" width="200" height="300"><img src="https://storage.googleapis.com/fashion_image/919453.jpg" alt="Image" width="200" height="300"><img src="https://storage.googleapis.com/fashion_image/509864.jpg" alt="Image" width="200" height="300"><img src="https://storage.googleapis.com/fashion_image/1002845.jpg" alt="Image" width="200" height="300"><img src="https://storage.googleapis.com/fashion_image/6678.jpg" alt="Image" width="200" height="300"><img src="https://storage.googleapis.com/fashion_image/589519.jpg" alt="Image" width="200" height="300"><img src="https://storage.googleapis.com/fashion_image/67591.jpg" alt="Image" width="200" height="300">
-                        </body>
-                    </html>
-        + Text query
-            ```bash
-            $ python client.py --save_dir temp.html --text_query your_text_query
-            ```
-            + **Top 8 products images similar with text query: crop top**
-                <html>
-                    <body>
-                        <div class="image-grid">
-                <img src="https://storage.googleapis.com/fashion_image/640366.jpg" alt="Image" width="200" height="300"><img src="https://storage.googleapis.com/fashion_image/965820.jpg" alt="Image" width="200" height="300"><img src="https://storage.googleapis.com/fashion_image/607634.jpg" alt="Image" width="200" height="300"><img src="https://storage.googleapis.com/fashion_image/673682.jpg" alt="Image" width="200" height="300"><img src="https://storage.googleapis.com/fashion_image/615135.jpg" alt="Image" width="200" height="300"><img src="https://storage.googleapis.com/fashion_image/38530.jpg" alt="Image" width="200" height="300"><img src="https://storage.googleapis.com/fashion_image/455345.jpg" alt="Image" width="200" height="300"><img src="https://storage.googleapis.com/fashion_image/742095.jpg" alt="Image" width="200" height="300">
-                        </body>
-                    </html>
 
 ## 3. Monitoring Service
 I'm using Prometheus and Grafana for monitoring the health of both Node and pods that running application.
