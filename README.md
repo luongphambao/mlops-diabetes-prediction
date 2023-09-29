@@ -17,7 +17,18 @@ $make elk_up    #start logs collector
 $make monitoring_up #start monitoring service(prometheus, grafana,jaeger)
 $make predictor_up #start predictor service
 ```
-### Test local service
+Access to `localhost:8000/docs` for testing api
+
+Access to `localhost:5601` for logs kibana search
+
+Access to `localhost:3000` for grafana dashboard
+
+Access to `localhost:16686` for jaeger tracing
+
+Access to `localhost:9090` for prometheus
+### Load test system
 ```bash
-$locust -f locustfile.py
+$locust -f locustfile.py 
+#localhost:8089
 ```
+
