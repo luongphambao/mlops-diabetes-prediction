@@ -31,4 +31,5 @@ Access to `localhost:9090` for prometheus
 $locust -f locustfile.py 
 #localhost:8089
 ```
+You can see dashboard for performance testing in grafana and tracing in jaeger
 
