@@ -1,8 +1,9 @@
 # diabetes_prediction_mlops
-Final Project for MLOps Course
-```
 
-##Traning
+Final Project for MLOps Course
+
+
+##   Training
 ```bash
 $make mlflow_up 
 $python3 src/data_split.py #prepare data
@@ -15,4 +16,8 @@ $make mlflow_up #start mlflow server
 $make elk_up    #start logs collector
 $make monitoring_up #start monitoring service(prometheus, grafana,jaeger)
 $make predictor_up #start predictor service
+```
+### Test local service
+```bash
+$locust -f locustfile.py
 ```
