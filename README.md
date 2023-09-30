@@ -4,30 +4,30 @@ Final Project for MLE1 Course
 
 In this project, I learn how to use most popular MLOPS tool to build a pipeline for model serving and CI/CD pipeline
 Tech stack i used in this project:
-- MLFlow: Model registry, artifact store
+-  **MLFlow**: Model registry, artifact store
 
-- FastAPI: model serving
+-  **FastAPI**: model serving
 
-- Prometheus,Cadvisor: metrics collector
+-  **Prometheus,Cadvisor**: metrics collector
 
-- Grafana: metrics visualization
+-  **Grafana**: metrics visualization
 
-- Jaeger: tracing
+-  **Jaeger**: tracing
 
-- ElasticSearch, Logstash, Kibana: logs collector and analysis
+-  **ElasticSearch, Logstash, Kibana**: logs collector and analysis
 
-- Locust: load test for model serving
+-  **Locust**: load test for model serving
 
-- Docker,Docker-compose: containerization
+-  **Docker,Docker-compose**: containerization
 
-- Kubernetes,Helm: container orchestration
-- Jenkins: CI/CD pipeline
+-  **Kubernetes,Helm**: container orchestration
+-  **Jenkins**: CI/CD pipeline
 
-- Github: source version control
+-  **Github**: source version control
 
-- Cloud service: Google Kubernetes Engine
+-  **Cloud service**: Google Kubernetes Engine
 
-- Infrastructure as code: Terraform,Ansible
+-  **Infrastructure as code**: Terraform,Ansible
 
 ## System Architecture
 ![](images/mle1_final1.png)
@@ -46,19 +46,19 @@ $make elk_up    #start logs collector
 $make monitoring_up #start monitoring service(prometheus, grafana,jaeger)
 $make predictor_up #start predictor service
 ```
-Access to `localhost:8000/docs` for testing api
+Access to `localhost**:8000/docs` for testing api
 
-Access to `localhost:5601` for logs kibana search
+Access to `localhost**:5601` for logs kibana search
 
-Access to `localhost:3000` for grafana dashboard
+Access to `localhost**:3000` for grafana dashboard
 
-Access to `localhost:16686` for jaeger tracing
+Access to `localhost**:16686` for jaeger tracing
 
-Access to `localhost:9090` for prometheus
+Access to `localhost**:9090` for prometheus
 ### Load test system
 ```bash
 $locust -f locustfile.py
-#localhost:8089
+#localhost**:8089
 ```
 You can see dashboard for performance testing in grafana and tracing in jaeger
 ### Cloud Service
