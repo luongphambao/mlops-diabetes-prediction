@@ -47,14 +47,17 @@ $make monitoring_up #start monitoring service(prometheus, grafana,jaeger)
 $make predictor_up #start predictor service
 ```
 Access to `localhost**:8000/docs` for testing api
-
+![](images/fastapi.png)
 Access to `localhost**:5601` for logs kibana search
-
+![](images/elk.png)
 Access to `localhost**:3000` for grafana dashboard
-
+![](images/grafana1.png)
+![](images/grafana2.png)
+![](images/grafana3.png)
 Access to `localhost**:16686` for jaeger tracing
-
+![](images/jaeger.png)
 Access to `localhost**:9090` for prometheus
+![](images/prometheus.png)
 ### Load test system
 ```bash
 $locust -f locustfile.py
