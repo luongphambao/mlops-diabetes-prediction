@@ -60,11 +60,12 @@ Access to `localhost:16686` for jaeger tracing
 ![](images/jaeger.png)
 Access to `localhost:9090` for prometheus
 ![](images/prometheus.png)
+You can see dashboard for performance testing in grafana and tracing in jaeger
 ### Load test system
 ```bash
 $locust -f locustfile.py
 #localhost**:8089
 ```
-You can see dashboard for performance testing in grafana and tracing in jaeger
+You can create request with different for testing performace system 
 ### Cloud Service
 You can see `README_cloud.md` for details setup and deploy to cloud service(GKE )  model serving and CI/CD pipeline
