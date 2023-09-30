@@ -2,6 +2,7 @@ import argparse
 import logging
 import pickle
 import time
+
 import joblib
 import numpy as np
 import pandas as pd
@@ -102,6 +103,11 @@ class ServingAPI:
             "id": "123",
             "data": [[6,148,72,35,0,33.6,0.627,50]],
             "columns": ["Pregnancies","Glucose","BloodPressure","SkinThickness","Insulin","BMI","DiabetesPedigreeFunction","Age"]
+            }
+            Output:
+            {
+            "id": "123",
+            "predictions": [1]
             }
             """
             return self.predictor.predict(data)
