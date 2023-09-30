@@ -87,7 +87,7 @@ sudo nano /etc/hosts
 
 Jenkins is deployed on Google Compute Engine using [Ansible](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_intro.html) with a machine type is **n1-standard-2**.
 
-Reference from [duongngyn0510](https://github.com/duongngyn0510/continuous-deployment-to-gke-cluster/blob/master/README.md)
+Refer to how to install from [duongngyn0510](https://github.com/duongngyn0510/continuous-deployment-to-gke-cluster/blob/master/README.md)
 
 ### 3.1. Spin up your instance
 Create your [service account](https://console.cloud.google.com/), and select [Compute Admin](https://cloud.google.com/compute/docs/access/iam#compute.admin) role (Full control of all Compute Engine resources) for your service account.
