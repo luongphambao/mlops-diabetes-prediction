@@ -2,7 +2,7 @@
 
 Final Project for MLE1 Course
 
-In this project, I learned how to use the most popular MLOps tool to build a pipeline for model serving and a CI/CD pipeline. It was a fascinating journey that allowed me to delve into the world of Machine Learning Operations (MLOps) and understand the crucial role it plays in the deployment and management of machine learning models.
+In this project, I learned how to use the most popular MLOps tool to build a pipeline for model serving and a CI/CD pipeline.
 
 Tech stack i used in this project:
 -  **MLFlow**: Model registry, artifact store
@@ -33,6 +33,11 @@ Tech stack i used in this project:
 ## System Architecture
 ![](images/mle1_final1.png)
 
+## Installation enviroment (Python3)
+```bash
+$sudo apt install cmake
+$pip install -r requirements.txt
+```
 ##   Training
 ```bash
 $make mlflow_up
