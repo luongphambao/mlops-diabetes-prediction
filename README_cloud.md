@@ -24,13 +24,11 @@ sudo apt-get install google-cloud-cli-gke-gcloud-auth-plugin
 #### 1.4. Create service account
 Create your [service account](https://console.cloud.google.com/iam-admin/serviceaccounts), and select `Kubernetes Engine Admin` role (Full management of Kubernetes Clusters and their Kubernetes API objects) for your service account.
 
-Create new key as json type for your service account. Download this json file and save it in `terraform` directory. Update `credentials` in `terraform/main.tf` with your json directory.
-
 #### 1.5. Add permission for Project
 Go to [IAM](https://console.cloud.google.com/iam-admin/iam), click on `GRANT ACCESS`, then add new principals, this principal is your service account created in step 1.3. Finally, select `Owner` role.
 ![](images/grant_access.png)
 
-#### 1.7. Connect to the GKE cluster.
+#### 1.6. Connect to the GKE cluster.
 + Go back to the [GKE UI](https://console.cloud.google.com/kubernetes/list).
 + Click on vertical ellipsis icon and select **Connect**.
 You will see the popup Connect to the cluster as follows
