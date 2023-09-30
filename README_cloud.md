@@ -48,25 +48,22 @@ Using [Helm chart](https://helm.sh/docs/topics/charts/) to deploy application on
 
 #### 2.1. Create nginx ingress controller
 ```bash
-cd helm_charts/nginx_ingress
-kubectl create ns nginx-ingress
-kubens nginx-ingress
-helm upgrade --install nginx-ingress-controller .
+k apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.1.3/deploy/static/provider/baremetal/deploy.yaml
 ```
 After that, nginx ingress controller will be created in `nginx-ingress` namespace.
 
 #### 2.2. Deploy application to GKE cluster manually
-Text-image retrieval service will be deployed with `NodePort` type (nginx ingress will route the request to this service) and 2 replica pods that maintain by `Deployment`.
+Diabetes machine learning  service will be deployed with `NodePort` type (nginx ingress will route the request to this service) and 2 replica pods that maintain by `Deployment`.
 
 Each pod contains the container running the [text-image retrieval application](https://github.com/duongngyn0510/text-image-retrieval).
 
 The requests will initially arrive at the Nginx Ingress Gateway and will subsequently be routed to the service within the `model-serving` namespace of the GKE cluster.
 
 ```bash
-cd helm_charts/app
+cd k8s/helm/diabetes
 kubectl create ns model-serving
 kubens model-serving
-helm upgrade --install app --set image.repository=duong05102002/text-image-retrieval-serving --set image.tag=v1.5 .
+helm upgrade --install diabetes ./k8s/helm/diabetes --namespace model-serving
 ```
 
 After that, application will be deployed successfully on GKE cluster. To test the api, you can do the following steps:
@@ -76,14 +73,13 @@ After that, application will be deployed successfully on GKE cluster. To test th
 kubectl get ing
 ```
 
-+ Add the domain name `retrieval.com` (set up in `helm_charts/app/templates/app_ingress.yaml`) of this IP to `/etc/hosts`
++ Add the domain name `retrieval.com` (set up in `k8s/helm/diabetes/templates/nginx-ingress.yaml`) of this IP to `/etc/hosts`
 ```bash
 sudo nano /etc/hosts
-[YOUR_INGRESS_IP_ADDRESS] retrieval.com
+[YOUR_INGRESS_IP_ADDRESS] baolp-model-serving.com
 ```
-or you can utilize my Ingress IP address (valid until 27/11/2023 during the free trial period).
 ```bash
-34.133.25.217 retrieval.com
+34.133.15.205 baolp-model-serving.com
 ```
 
 
