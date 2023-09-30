@@ -2,6 +2,33 @@
 
 Final Project for MLE1 Course
 
+In this project, I learn how to use most popular MLOPS tool to build a pipeline for model serving and CI/CD pipeline
+Tech stack i used in this project:
+- MLFlow: Model registry, artifact store
+
+- FastAPI: model serving
+
+- Prometheus,Cadvisor: metrics collector
+
+- Grafana: metrics visualization
+
+- Jaeger: tracing
+
+- ElasticSearch, Logstash, Kibana: logs collector and analysis
+
+- Locust: load test for model serving
+
+- Docker,Docker-compose: containerization
+
+- Kubernetes,Helm: container orchestration
+- Jenkins: CI/CD pipeline
+
+- Github: source version control
+
+- Cloud service: Google Kubernetes Engine
+
+- Infrastructure as code: Terraform,Ansible
+
 ## System Architecture
 ![](images/mle1_final1.png)
 
