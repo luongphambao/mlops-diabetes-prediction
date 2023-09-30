@@ -3,7 +3,7 @@
 Final Project for MLOps Course
 
 ## System Architecture
-![](images/mle1.png)
+![](images/mle1_final.png)
 
 ##   Training
 ```bash
