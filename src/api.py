@@ -1,16 +1,13 @@
 import argparse
 import logging
 import time
-
 import joblib
 import pandas as pd
 import uvicorn
 from fastapi import FastAPI
 from loguru import logger
 from pydantic import BaseModel
-
 from config import Config
-
 PREDICTOR_API_PORT = Config.PREDICTOR_API_PORT
 
 
@@ -29,12 +26,9 @@ class ModelPredictor:
 
     def predict(self, data: Data):
         start_time = time.time()
-        # df=pd.DataFrame(data.data)
-        # convert to numpy array
         df = pd.DataFrame(data.data, columns=data.columns)
         end_convertdf = time.time()
         logger.info(f"convert df time: {end_convertdf-start_time}")
-        # df=df.to_numpy()
         df = self.scaler.transform(df)
         end_scaler = time.time()
         logger.info(f"scaler time: {end_scaler-end_convertdf}")

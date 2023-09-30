@@ -2,6 +2,8 @@
 
 Final Project for MLOps Course
 
+## System Architecture
+![](images/mle1.png)
 
 ##   Training
 ```bash
@@ -32,4 +34,6 @@ $locust -f locustfile.py
 #localhost:8089
 ```
 You can see dashboard for performance testing in grafana and tracing in jaeger
+### Cloud Service
+```bash
 
