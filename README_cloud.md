@@ -87,72 +87,11 @@ or you can utilize my Ingress IP address (valid until 27/11/2023 during the free
 ```
 
 
-## 3. Monitoring Service
-I'm using Prometheus and Grafana for monitoring the health of both Node and pods that running application.
-
-Prometheus will scrape metrics from both Node and pods in GKE cluster. Subsequently, Grafana will display information such as CPU and RAM usage for system health monitoring, and system health alerts will be sent to Discord.
-
-### How-to Guide
-
-#### 3.1. Deploy Prometheus service
-
-+ Create Prometheus CRDs
-```bash
-cd helm_charts/prometheus-operator-crds
-kubectl create ns monitoring
-kubens monitoring
-helm upgrade --install prometheus-crds .
-```
-
-+ Deploy Prometheus service (with `NodePort` type) to GKE cluster
-```bash
-cd helm_charts/prometheus
-kubens monitoring
-helm upgrade --install prometheus .
-```
-
-*Warnings about the health of the node and the pod running the application will be alerted to Discord. In this case, the alert will be triggered and sent to Discord when there is only 10% memory available in the node.*
-
-Prometheus UI can be accessed by `[YOUR_NODEIP_ADDRESS]:30001`
-
-**Note**:
-+ Open [Firewall policies](https://console.cloud.google.com/net-security/firewall-manager/firewall-policies) to modify the protocols and ports corresponding to the node `Targets` in a GKE cluster. This will be accept incoming traffic on ports that you specific.
-+ I'm using ephemeral IP addresses for the node, and these addresses will automatically change after a 24-hour period. You can change to static IP address for more stability or permanence.
-
-
-#### 3.2. Deploy Grafana service
-+ Deploy Grafana service (with `NodePort` type) to GKE cluster
-
-```bash
-cd helm_charts/grafana
-kubens monitoring
-helm upgrade --install grafana .
-```
-
-Grafana UI can be accessed by `[YOUR_NODEIP_ADDRESS]:30000` (with both user and password is `admin`)
-
-Add Prometheus connector to Grafana with Prometheus server URL is: `[YOUR_NODEIP_ADDRESS]:30001`.
-
-This is some `PromSQL` that you can use for monitoring the health of node and pod:
-+ RAM usage of 2 pods that running application
-```shell
-container_memory_usage_bytes{container='app', namespace='model-serving'}
-```
-+ CPU usage of 2 pods that running application
-```shell
-rate(container_cpu_usage_seconds_total{container='app', namespace='model-serving'}[5m]) * 100
-```
-
-![](images/app_pod_metrics.png)
-
-+ Node usage
-![](images/node_metrics.png)
-
-## 4. Continuous deployment to GKE using Jenkins pipeline
+## 3. Continuous deployment to GKE using Jenkins pipeline
 
 Jenkins is deployed on Google Compute Engine using [Ansible](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_intro.html) with a machine type is **n1-standard-2**.
 
-### 4.1. Spin up your instance
+### 3.1. Spin up your instance
 Create your [service account](https://console.cloud.google.com/), and select [Compute Admin](https://cloud.google.com/compute/docs/access/iam#compute.admin) role (Full control of all Compute Engine resources) for your service account.
 
 Create new key as json type for your service account. Download this json file and save it in `secret_keys` directory. Update your `project` and `service_account_file` in `ansible/deploy_jenkins/create_compute_instance.yaml`.
@@ -172,7 +111,7 @@ Go to Settings, select [Metadata](https://console.cloud.google.com/compute/metad
 Update the IP address of the newly created instance and the SSH key for connecting to the Compute Engine in the inventory file.
 
 ![](gifs/ssh_key_out.gif)
-### 4.2. Install Docker and Jenkins
+### 3.2. Install Docker and Jenkins
 
 ```bash
 cd deploy_jenkins
@@ -181,7 +120,7 @@ ansible-playbook -i ../inventory deploy_jenkins.yml
 
 Wait a few minutes, if you see the output like this it indicates that Jenkins has been successfully installed on a Compute Engine instance.
 ![](images/install_jenkins_vm.png)
-### 4.3. Connect to Jenkins UI in Compute Engine
+### 3.3. Connect to Jenkins UI in Compute Engine
 Access the instance using the command:
 ```bash
 ssh -i ~/.ssh/id_rsa YOUR_USERNAME@YOUR_EXTERNAL_IP
@@ -252,7 +191,7 @@ kubectl create clusterrolebinding cluster-admin-default-binding --clusterrole=cl
 
 #### 4.4.6. Install Helm on Jenkins to enable application deployment to GKE cluster.
 
-+ You can use the `Dockerfile-jenkins-k8s` to build a new Docker image. After that, push this newly created image to Dockerhub. Finally replace the image reference at `containerTemplate` in `Jenkinsfile` or you can reuse my image `duong05102002/jenkins-k8s:latest`
++ You can use the `Dockerfile-jenkins-k8s` to build a new Docker image. After that, push this newly created image to Dockerhub. Finally replace the image reference at `containerTemplate` in `Jenkinsfile` or you can reuse  image `fullstackdatascience/jenkins-k8s:lts`
 
 
 ### 4.6. Continuous deployment
