@@ -3,7 +3,7 @@
 Final Project for MLOps Course
 
 ## System Architecture
-![](images/mle1_final.png)
+![](images/mle1_final1.png)
 
 ##   Training
 ```bash
@@ -35,5 +35,4 @@ $locust -f locustfile.py
 ```
 You can see dashboard for performance testing in grafana and tracing in jaeger
 ### Cloud Service
-```bash
-
+You can see `README_cloud.md` for details setup and deploy to cloud service(GKE )  model serving and CI/CD pipeline
