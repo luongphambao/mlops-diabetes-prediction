@@ -1,13 +1,13 @@
 # diabetes_prediction_mlops
 
-Final Project for MLOps Course
+Final Project for MLE1 Course
 
 ## System Architecture
 ![](images/mle1_final1.png)
 
 ##   Training
 ```bash
-$make mlflow_up 
+$make mlflow_up
 $python3 src/data_split.py #prepare data
 $python3 src/train.py --model_name xgb
 ```
@@ -30,7 +30,7 @@ Access to `localhost:16686` for jaeger tracing
 Access to `localhost:9090` for prometheus
 ### Load test system
 ```bash
-$locust -f locustfile.py 
+$locust -f locustfile.py
 #localhost:8089
 ```
 You can see dashboard for performance testing in grafana and tracing in jaeger
