@@ -51,6 +51,8 @@ $make elk_up    #start logs collector
 $make monitoring_up #start monitoring service(prometheus, grafana,jaeger)
 $make predictor_up #start predictor service
 ```
+Access to `localhost:5000/` for tracking experiment ML model
+![](images/mlflow.png)
 Access to `localhost:8000/docs` for testing api
 ![](images/fastapi.png)
 Access to `localhost:5601` for logs kibana search
@@ -67,8 +69,8 @@ You can see dashboard for performance testing in grafana and tracing in jaeger
 ### Load test system
 ```bash
 $locust -f src/load_test.py
-#localhost**:8089
 ```
+Access to `localhost:8089` for load test
 ![](images/locust.png)
 You can create request with different for testing performace system
 ### Cloud Service
