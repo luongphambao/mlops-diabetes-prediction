@@ -40,8 +40,10 @@ $pip install -r requirements.txt
 ##   Training
 ```bash
 $make mlflow_up
+$export MLFLOW_TRACKING_URI=http://localhost:5000
 $python3 src/data_split.py #prepare data
 $python3 src/train.py --model_name xgb
+#Register model in MLFlow UI at http://localhost:5000
 ```
 
 ## Start local service
