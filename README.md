@@ -1,6 +1,6 @@
 # diabetes_prediction_mlops
 
-Final Project for MLE1 Course.In this project, I learned how to use the most popular MLOps tool to build a pipeline for model serving and a CI/CD pipeline.Tech stack i used in this project:
+Final Project for MLE1 course. In this project, I learned how to use the most popular MLOps tool to build a pipeline for model serving and a CI/CD .Techstack I used in this project:
 -  **MLFlow**: Model registry, artifact store
 
 -  **FastAPI**: model serving
@@ -63,7 +63,7 @@ Access to `localhost:9090` for prometheus
 You can see dashboard for performance testing in grafana and tracing in jaeger
 ### Load test system
 ```bash
-$locust -f locustfile.py
+$locust -f src/load_test.py
 #localhost**:8089
 ```
 ![](images/locust.png)
