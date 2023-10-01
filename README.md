@@ -1,6 +1,6 @@
 # diabetes_prediction_mlops
 
-Final Project for MLE1 course. In this project, I learned how to use the most popular MLOps tool to build a pipeline for model serving and a CI/CD .Techstack I used in this project:
+This is Final Project for MLE1 course. In this project,I gained experience in using a widely-used MLOps tool to create a model serving pipeline and implement a CI/CD process. This project demonstrates the application of MLOps principles and provides a foundational solution for addressing machine learning challenges.Techstack I used in this project:
 -  **MLFlow**: Model registry, artifact store
 
 -  **FastAPI**: model serving
