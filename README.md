@@ -1,6 +1,6 @@
 # diabetes_prediction_mlops
 
-This is  Project for learning MLOPS. In this project,I gained experience in using a widely-used MLOps tool to create a model serving pipeline and implement a CI/CD process. This project demonstrates the application of MLOps principles and provides a foundational solution for addressing machine learning challenges.
+This is  Project for learning MLOps. In this project,I gained experience in using a widely-used MLOps tool to create a model serving pipeline and implement a CI/CD process. This project demonstrates the application of MLOps principles and provides a foundational solution for addressing machine learning challenges.
 
 Techstack I used in this project:
 
