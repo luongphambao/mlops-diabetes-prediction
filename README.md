@@ -66,6 +66,7 @@ You can see dashboard for performance testing in grafana and tracing in jaeger
 $locust -f locustfile.py
 #localhost**:8089
 ```
-You can create request with different for testing performace system 
+![](images/locust.png)
+You can create request with different for testing performace system
 ### Cloud Service
 You can see `README_cloud.md` for details setup and deploy to cloud service(GKE )  model serving and CI/CD pipeline
