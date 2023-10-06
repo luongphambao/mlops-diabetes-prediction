@@ -53,7 +53,7 @@ After that, nginx ingress controller will be created in `nginx-ingress` namespac
 #### 2.2. Deploy application to GKE cluster manually
 Diabetes machine learning  service will be deployed with `NodePort` type (nginx ingress will route the request to this service) and 2 replica pods that maintain by `Deployment`.
 
-Each pod contains the container running the [diabetes-prediction][(https://github.com/luongphambao/mlops-diabetes-prediction](https://github.com/luongphambao/mlops-diabetes-prediction)).
+Each pod contains the container running the [diabetes-prediction](https://github.com/luongphambao/mlops-diabetes-prediction).
 
 The requests will initially arrive at the Nginx Ingress Gateway and will subsequently be routed to the service within the `model-serving` namespace of the GKE cluster.
 
