@@ -53,7 +53,7 @@ After that, nginx ingress controller will be created in `nginx-ingress` namespac
 #### 2.2. Deploy application to GKE cluster manually
 Diabetes machine learning  service will be deployed with `NodePort` type (nginx ingress will route the request to this service) and 2 replica pods that maintain by `Deployment`.
 
-Each pod contains the container running the [text-image retrieval application](https://github.com/duongngyn0510/text-image-retrieval).
+Each pod contains the container running the [diabetes-prediction][(https://github.com/luongphambao/mlops-diabetes-prediction](https://github.com/luongphambao/mlops-diabetes-prediction)).
 
 The requests will initially arrive at the Nginx Ingress Gateway and will subsequently be routed to the service within the `model-serving` namespace of the GKE cluster.
 
@@ -71,7 +71,7 @@ After that, application will be deployed successfully on GKE cluster. To test th
 kubectl get ing
 ```
 
-+ Add the domain name `retrieval.com` (set up in `k8s/helm/diabetes/templates/nginx-ingress.yaml`) of this IP to `/etc/hosts`
++ Add the domain name ` baolp-model-serving.com` (set up in `k8s/helm/diabetes/templates/nginx-ingress.yaml`) of this IP to `/etc/hosts`
 ```bash
 sudo nano /etc/hosts
 [YOUR_INGRESS_IP_ADDRESS] baolp-model-serving.com
