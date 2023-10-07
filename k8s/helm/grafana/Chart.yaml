@@ -1,6 +1,6 @@
 apiVersion: v2
 name: grafana
-description: my helm chart for grafana monitoring retrieval app
+description: my helm chart for grafana monitoring diabetes app
 
 type: application
 
@@ -8,5 +8,5 @@ version: 0.1.0
 appVersion: "1.0.0"
 
 maintainers:
-- email: duong05102002@gmail.com
-  name: duongnguyen
+- email: luongphambao1901@gmail.com
+  name: luongphambbao
